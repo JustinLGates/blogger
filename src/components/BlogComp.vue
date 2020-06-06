@@ -1,28 +1,30 @@
 <template>
   <div class="row">
     <!--  -->
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3 m-auto">
-      <div class="bg-light p-1">
+    <div class="col-12 m-auto">
+      <!-- col-sm-6 col-md-4 col-lg-3 -->
+      <div class="bg-light p-1 m-2">
         <div class="bg-light">
-          <h3 class="pl-2 p-1">{{blog.title}}</h3>
-          <div class="m-1">
+          <h4 class="pl-2 p-1">{{blog.title}}</h4>
+          <!--  TODO add image for posts that have image ......
+             <div class="m-1" v-if="blog.img">
             <img class="img" src="https://placehold.it/150" alt />
-          </div>
+          </div>-->
           <div class="bg-light p-1 m-1">
             <div class="text-right">
-              <p class="text-dark">11/25 8:23pm</p>
+              <p class="text-dark">{{blog.createdAt}}</p>
             </div>
             <div class="d-flex align-items-end">
-              <img class="profile-img" src="https://placehold.it/100" alt />
-              <h4 class="pl-1"></h4>
+              <img class="profile-img" :src="blog.creator.picture" />
+              <p class="pl-1">{{blog.creator.name}}</p>
             </div>
-            <p class="p-1"></p>
+            <p class="p-1">{{blog.body}}</p>
             <div class="d-flex justify-content-between">
-              <div class="m-2 p-1">
-                <button class="btn btn-success">comments</button>
+              <div class="m-2 p-1" v-if="isCreator">
+                <button @click="deleteBlog(blog._id)" class="btn btn-danger">delete</button>
               </div>
               <div class="m-2 p-1">
-                <button class="btn btn-danger">delete</button>
+                <button @click="setAcitveBlog">comment</button>
               </div>
             </div>
           </div>
@@ -42,10 +44,17 @@ export default {
   },
   computed: {
     isCreator() {
-      return this.$store.state.profile.email == this.post.creatorEmail;
+      return this.$auth.user.email == this.blog.creator.email;
     }
   },
-  methods: {}
+  methods: {
+    deleteBlog(id) {
+      this.$store.dispatch("deleteBlog", id);
+    },
+    setAcitveBlog() {
+      this.$store.dispatch("setActiveBlog", this.blog._id);
+    }
+  }
 };
 </script>
 

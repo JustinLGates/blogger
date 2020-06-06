@@ -38,7 +38,7 @@
               <button type="submit" class="m-1 p-1 btn btn-success">Post</button>
               <!-- todo hide form -->
               <button class="m-1 p-1 btn btn-danger">Cancel</button>
-              <!--  TODO  hide form -->
+              <!--  TODO  hide form and save as draft -->
             </div>
           </div>
         </form>
@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     createNewBlog() {
-      this.$Store.dispatch("createNewBlog", this.blogFormData);
+      this.$store.dispatch("createNewBlog", this.blogFormData);
     }
   }
 };
@@ -91,7 +91,5 @@ export default {
 
   position: fixed;
   z-index: 1;
-}
-.bg-dark-glass {
 }
 </style>
