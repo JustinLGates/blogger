@@ -7,7 +7,7 @@
         <BlogComp :blog="blog" />
         <div class="row">
           <div class="col-12">
-            <form>
+            <form v-if="this.$auth.user">
               <div class="d-flex m-1">
                 <div class="flex-grow-1 m-1 mr-3">
                   <input
