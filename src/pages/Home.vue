@@ -5,10 +5,9 @@
       <div v-if="this.$auth.isAuthenticated">
         <div class="col-12 d-flex justify-content-center add-blog-btn">
           <div class="mx-2 mx-lg-5">
-            <button @click="toggleForm" class="btn btn-success">+ New blog +</button>
-          </div>
-          <div class="mx-2 mx-lg-5">
-            <button class="btn btn-light">My blogs</button>
+            <button @click="toggleForm" class="btn btn-success">
+              <i class="fa fa-plus"></i>
+            </button>
           </div>
         </div>
       </div>

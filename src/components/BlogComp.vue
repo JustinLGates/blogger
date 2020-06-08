@@ -16,7 +16,7 @@
                 <p class="text-dark">{{blog.createdAt}}</p>
               </div>
               <div class="d-flex align-items-end">
-                <img class="profile-img" :src="blog.creator.picture" />
+                <img class="profile-img" :src="blog.creator.picture||'https://placehold.it/150'" />
                 <p class="pl-1">{{blog.creator.name}}</p>
               </div>
               <p class="p-1">{{blog.body}}</p>
@@ -26,6 +26,7 @@
             <div class="m-2 p-1" v-if="isCreator">
               <button @click="deleteBlog(blog._id)" class="btn btn-danger m-1">delete</button>
               <button @click="editBlog(blog._id)" class="btn btn-secondary m-1">edit</button>
+              <input v-model="blogBody.body" />
             </div>
             <div class="m-2 p-1">
               <!-- <button @click="setAcitveBlog" class="btn btn-info">comment</button> -->
@@ -43,7 +44,9 @@
 export default {
   props: ["blog"],
   data() {
-    return {};
+    return {
+      blogBody: { body: this.blog.body }
+    };
   },
   computed: {
     isCreator() {
@@ -54,6 +57,15 @@ export default {
     }
   },
   methods: {
+    editBlog() {
+      let update = {
+        id: this.blog.id,
+        body: this.blogBody.body
+      };
+      console.log("editing the blog" + JSON.stringify(update));
+
+      this.$store.dispatch("editBlog", update);
+    },
     deleteBlog(id) {
       this.$store.dispatch("deleteBlog", id);
     },

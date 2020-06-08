@@ -17,7 +17,7 @@ export default new Vuex.Store({
     toggleBlogForm(state) {
       state.isBlogFormShowing = !state.isBlogFormShowing;
     },
-    setActiveBlog(state, id) {
+    setActiveBlogPost(state, id) {
       state.activeBlog = state.blogs.find((b) => b.id == id);
     },
     getBlogById(state, blog) {
@@ -42,6 +42,7 @@ export default new Vuex.Store({
     async deleteComment({ commit, dispatch }, comment) {
       try {
         let res = await api.delete(`comments/${comment.id}`);
+        dispatch("setActiveBlog", comment.blogId);
       } catch (err) {
         console.log(err);
       }
@@ -57,14 +58,38 @@ export default new Vuex.Store({
         console.log(err);
       }
     },
+
+    async editBlog({ commit, dispatch }, data) {
+      let res = await api.put(`blogs/${data.id}`, data);
+      dispatch("getAllBlogs");
+      dispatch("setActiveBlog", data.id);
+    },
+
+    async editComment({ commit, dispatch }, update) {
+      let res = await api.put(`comments/${update.id}`, update);
+      console.log(res);
+      dispatch("setActiveBlog", update.blogId);
+    },
+
     async getBlogById({ commit, dispatch }) {
       let id = this.state.activeBlog.id;
       let blogData = await api.get(`blogs/${id}`);
       commit("getBlogById", blogData.data);
     },
     async setActiveBlog({ commit, dispatch }, id) {
-      let blog = await api.get(`/blogs/${id}`);
-      await commit("setActiveBlog", id);
+      try {
+        console.log("setting active blog");
+
+        let blog = await api.get(`/blogs/${id}`);
+      } catch (err) {
+        console.log(err);
+      }
+      commit("setActiveBlogPost", id);
+      try {
+        await router.push("/");
+      } catch (err) {
+        console.log(err);
+      }
       router.push(`Post`);
     },
     async getAllBlogs({ commit, dispatch }) {

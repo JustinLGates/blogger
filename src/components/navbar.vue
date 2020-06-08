@@ -1,11 +1,11 @@
 <template>
   <div class="fixed-top row">
     <div class="col-12">
-      <nav class="navbar navbar-expand-lg navbar-light text-secondary bg-primary">
+      <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
         <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
           <div class="d-flex flex-column align-items-center"></div>
           <div>
-            <h3 class="text-secondary">loggr</h3>
+            <h3 class="text-info">Blog Face</h3>
           </div>
         </router-link>
         <button

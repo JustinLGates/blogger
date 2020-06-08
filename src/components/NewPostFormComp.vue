@@ -22,7 +22,7 @@
             <div class="d-flex justify-content-center m-2 p-2">
               <button type="submit" class="m-1 p-1 btn btn-success">Post</button>
               <!-- todo hide form -->
-              <button @click="blogFormData={}" class="m-1 p-1 btn text-dark btn-danger">Cancel</button>
+              <button @click="toggleForm" class="m-1 p-1 btn text-dark btn-danger">Cancel</button>
               <!--  TODO  hide form and save as draft -->
             </div>
           </div>
@@ -55,6 +55,10 @@ export default {
   methods: {
     createNewBlog() {
       this.$store.dispatch("createNewBlog", this.blogFormData);
+      blogFormData = {};
+    },
+    toggleForm() {
+      this.$store.dispatch("toggleBlogForm");
     }
   }
 };
