@@ -72,7 +72,8 @@ export default {
     setAcitveBlog() {
       // if (this.$auth.user) {
       // console.log("success");
-      this.$store.dispatch("setActiveBlog", this.blog._id);
+      // this.$store.dispatch("setActiveBlog", this.blog._id);
+      this.$router.push({ name: "Post", params: { id: this.blog._id } });
       // } else {
       // console.log("denied not loged in");
       // }

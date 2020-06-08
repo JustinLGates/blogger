@@ -25,7 +25,7 @@ const routes = [
     beforeEnter: authGuard,
   },
   {
-    path: "/post",
+    path: "/post/:id",
     name: "Post",
     component: Post,
     // beforeEnter: authGuard,

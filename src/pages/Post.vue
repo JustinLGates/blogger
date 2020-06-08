@@ -17,7 +17,7 @@
                     placeholder="comment"
                   />
                 </div>
-                <div v-if="this.$auth.user" class="flex-grow-2 m-1 mr-2">
+                <div class="flex-grow-2 m-1 mr-2">
                   <button @click="postComment" type="submit" class="btn btn-success w-100">Post</button>
                 </div>
               </div>
@@ -41,7 +41,7 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("getBlogById");
+    this.$store.dispatch("getBlogById", this.$route.params.id);
   },
   computed: {
     activeBlog() {
@@ -63,7 +63,7 @@ export default {
     postComment() {
       let commentData = {
         body: this.comment.body,
-        blogId: this.blog.id,
+        blogId: this.$route.params.id,
         creatorEmail: this.$auth.user.email
       };
       console.log(

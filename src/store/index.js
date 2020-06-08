@@ -49,6 +49,7 @@ export default new Vuex.Store({
     },
     async postComment({ commit, dispatch }, blogData) {
       try {
+        debugger;
         let res = await api.post("comments", blogData);
         console.log(res.data);
 
@@ -71,8 +72,8 @@ export default new Vuex.Store({
       dispatch("setActiveBlog", update.blogId);
     },
 
-    async getBlogById({ commit, dispatch }) {
-      let id = this.state.activeBlog.id;
+    async getBlogById({ commit, dispatch }, id) {
+      // let id = this.state.activeBlog.id;
       let blogData = await api.get(`blogs/${id}`);
       commit("getBlogById", blogData.data);
     },
@@ -85,12 +86,12 @@ export default new Vuex.Store({
         console.log(err);
       }
       commit("setActiveBlogPost", id);
-      try {
-        await router.push("/");
-      } catch (err) {
-        console.log(err);
-      }
-      router.push(`Post`);
+      // try {
+      //   await router.push("/");
+      // } catch (err) {
+      //   console.log(err);
+      // }
+      // router.push(`Post`);
     },
     async getAllBlogs({ commit, dispatch }) {
       let blogs = await api.get("blogs");
